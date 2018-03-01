@@ -8,6 +8,7 @@
     "create-dist": "mkdir dist",
     "transpile": "./node_modules/.bin/babel --presets es2015 src --out-dir dist",
     "prebuild": "yarn clean && yarn create-dist",
+    "build": "yarn prebuild && yarn transpile",
     "run-local": "yarn prebuild && yarn transpile && node ./dist/index"
   },
   "dependencies": {
