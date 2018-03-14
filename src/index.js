@@ -70,42 +70,42 @@ MongoClient.connect(process.env.MONGO_URI, (err, c) => {
 		})
 		//https://docs.mongodb.com/manual/reference/operator/update/inc/
 		//updateOne inc each thing by the score
-		// ::concatMap(comment => {
-		// 	return fromPromise(db.collection('subreddits').updateOne({
-		// 		subreddit: comment.subreddit_name_prefixed,
-		// 	}, {
-		// 		$inc: {score: comment.score}
-		// 	}, {
-		// 		upsert: true
-		// 	}))::mapTo(comment)
-		// })
-		// ::concatMap(comment => {
-		// 	return fromPromise(db.collection('threads').updateOne({
-		// 		link_id: comment.link_id
-		// 	}, {
-		// 		$inc: {score: comment.score}
-		// 	}, {
-		// 		upsert: true
-		// 	}))::mapTo(comment)
-		// })
-		// ::concatMap(comment => {
-		// 	return fromPromise(db.collection('users').updateOne({
-		// 		user: comment.name
-		// 	}, {
-		// 		$inc: {score: comment.score}
-		// 	}, {
-		// 		upsert: true
-		// 	}))::mapTo(comment)
-		// })
-		// ::concatMap(comment => {
-		// 	return fromPromise(db.collection('reddit').updateOne({
-		// 		id: 'reddit',
-		// 	}, {
-		// 		$inc: {score: comment.score}
-		// 	}, {
-		// 		upsert: true
-		// 	}))
-		// })
+		::concatMap(comment => {
+			return fromPromise(db.collection('subreddits').updateOne({
+				subreddit: comment.subreddit_name_prefixed,
+			}, {
+				$inc: {score: comment.score}
+			}, {
+				upsert: true
+			}))::mapTo(comment)
+		})
+		::concatMap(comment => {
+			return fromPromise(db.collection('threads').updateOne({
+				link_id: comment.link_id
+			}, {
+				$inc: {score: comment.score}
+			}, {
+				upsert: true
+			}))::mapTo(comment)
+		})
+		::concatMap(comment => {
+			return fromPromise(db.collection('users').updateOne({
+				user: comment.name
+			}, {
+				$inc: {score: comment.score}
+			}, {
+				upsert: true
+			}))::mapTo(comment)
+		})
+		::concatMap(comment => {
+			return fromPromise(db.collection('reddit').updateOne({
+				id: 'reddit',
+			}, {
+				$inc: {score: comment.score}
+			}, {
+				upsert: true
+			}))
+		})
 		.subscribe(
 			() => {},
 			err => {throw err},
