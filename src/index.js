@@ -9,7 +9,9 @@ import {mapTo} from 'rxjs/operator/mapTo'
 import Snoowrap from 'snoowrap'
 import Snoostorm from 'snoostorm'
 import sentiment from 'sentiment'
+import _ld from 'languagedetect'
 
+const ld = new _ld();
 
 MongoClient.connect(process.env.MONGO_URI, (err, c) => {
 	if (err) {
@@ -39,6 +41,10 @@ MongoClient.connect(process.env.MONGO_URI, (err, c) => {
 	const comments = client.CommentStream(streamOpts);
 
 	fromEvent(comments, 'comment')
+		::filter(({body}) => {
+			const lng = ld.detect(body);
+			return lng.length > 0 && lng[0][0] === 'eng';
+		})
 		::map(comment => {
 			const {
 				subreddit_id,
