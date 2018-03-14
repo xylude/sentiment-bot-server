@@ -5,6 +5,7 @@ import {map} from 'rxjs/operator/map'
 import {fromPromise} from 'rxjs/observable/fromPromise'
 import {concatMap} from 'rxjs/operator/concatMap'
 import {mapTo} from 'rxjs/operator/mapTo'
+import {filter} from 'rxjs/operator/filter'
 
 import Snoowrap from 'snoowrap'
 import Snoostorm from 'snoostorm'
